@@ -20,6 +20,8 @@ interface BottlesContextType {
     levels:LevelModel[];
     setLevels:React.Dispatch<React.SetStateAction<LevelModel[]>>;
     time:number;
+    handleDiscountMove:() => void;
+    movesLeft:number;
 }
 
 // 1. Create a new context

@@ -4,12 +4,16 @@ type TimerProps = {
   initialTimeSec: number;
   size: string;
   onFinishTime: () => void;
+  isVictory: boolean;
 }
 
-const Timer: React.FC<TimerProps> = ({ initialTimeSec, size, onFinishTime }) => {
+const Timer: React.FC<TimerProps> = ({ initialTimeSec, size, onFinishTime, isVictory }) => {
   const [timeLeft, setTimeLeft] = useState(initialTimeSec);
 
   useEffect(() => {
+    //no se descuenta el tiempo si hay vistoria
+    if (isVictory) return
+
     // No hacer nada si ya hemos llegado a 0
     if (!timeLeft){
         onFinishTime()

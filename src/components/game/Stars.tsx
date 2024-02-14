@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import StartIcon from './icons/StartIcon'
+import StartIcon from '../icons/StartIcon'
 
 function Stars({numStars}:{numStars:number}) {
     const [stars, setStars] = useState<any[]>([])

@@ -1,5 +1,5 @@
 import React from 'react'
-import GameIcon from './GameIcon'
+import GameIcon from '../icons/GameIcon'
 
 function StarCounter() {
   return (

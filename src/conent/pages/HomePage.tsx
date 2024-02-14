@@ -1,6 +1,6 @@
-import Button from '../../components/Button'
+import Button from '../../components/tags/Button'
 import { useLocation} from 'wouter'
-import Title from '../../components/Title';
+import Title from '../../components/tags/Title';
 
 function HomePage() {
     const [location, setLocation] = useLocation();

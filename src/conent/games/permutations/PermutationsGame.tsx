@@ -1,5 +1,5 @@
-import { usePermutationsContext } from '../../contexts/PermutationsContext'
-import LevelsManager from './LevelsManager'
+import { usePermutationsContext } from '../../../contexts/PermutationsContext'
+import LevelsManager from '../../pages/LevelsManager'
 
 function BottleGame() {
     const {levels} = usePermutationsContext()

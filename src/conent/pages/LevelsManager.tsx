@@ -1,4 +1,4 @@
-import Level from '../../components/Level'
+import Level from '../../components/game/Level'
 import { useLocation } from 'wouter'
 import { LevelModel } from '../../models/level'
 

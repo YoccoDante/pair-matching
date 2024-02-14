@@ -20,8 +20,8 @@ const StyledDiv = styled.div`
   z-index: -5;
 `;
 
-const BG2 = () => {
+const GameBackGround = () => {
   return <StyledDiv />;
 };
 
-export default BG2;
+export default GameBackGround;

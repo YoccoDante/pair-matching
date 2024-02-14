@@ -4,11 +4,11 @@ import LoaderProvider from './components/loaders';
 import { BottlesProvider } from './contexts/BottleContext';
 import { PermutationsProvider } from './contexts/PermutationsContext';
 
-const BottlesGame = lazy(() => import('./conent/bottles/BottleGame'));
-const BottlesLevel = lazy(() => import('./conent/bottles/BottleLevel'));
-const PermutationsLevel = lazy(() => import('./conent/bottles/PermutationsLevel'))
-const PermutationsGame = lazy(() => import('./conent/bottles/PermutationsGame'));
-const HomePage = lazy(() => import('./conent/bottles/HomePage'));
+const BottlesGame = lazy(() => import('./conent/games/bottles/BottleGame'))
+const BottlesLevel = lazy(() => import('./conent/games/bottles/BottleLevel'));
+const PermutationsLevel = lazy(() => import('./conent/games/permutations/PermutationsLevel'))
+const PermutationsGame = lazy(() => import('./conent/games/permutations/PermutationsGame'));
+const HomePage = lazy(() => import('./conent/pages/HomePage'));
 
 
 function AppRouter() {

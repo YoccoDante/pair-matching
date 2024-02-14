@@ -1,6 +1,6 @@
 // Soundtrack.tsx
 import React, { useEffect, useRef, useState } from 'react';
-import { useSettingsContext } from '../contexts/SettingsContext';
+import { useSettingsContext } from '../../contexts/SettingsContext';
 
 const SoundtrackManager: React.FC = () => {
     const audioRef = useRef<HTMLAudioElement | null>(null);

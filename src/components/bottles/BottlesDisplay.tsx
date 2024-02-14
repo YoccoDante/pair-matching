@@ -1,35 +1,26 @@
-import DraggableBottles from '../../components/bottles/DraggableBottles'
-import SwitchableBottles from '../../components/bottles/SwitchableBottles'
+import React, { useEffect, useState } from 'react'
 import { useBottlesContext } from '../../contexts/BottleContext'
-import GameOptions from '../../components/GameOptions'
-import { useEffect, useState } from 'react'
+import DraggableBottles from './DraggableBottles'
+import SwitchableBottles from './SwitchableBottles'
 import { useSettingsContext } from '../../contexts/SettingsContext'
-import Title from '../../components/Title'
-import { useParams } from 'wouter'
-import VictoryDialog from '../../components/VictoryDialog'
-import Timer from '../../components/Timer'
+import MovesCounter from '../game/MovesCounter'
 
-function BottleLevel() {
+function BottlesDisplay() {
     const {isDraggable} = useSettingsContext()
-    const params = useParams()
-    const {matches, surrender, setSurrender, retry, trueOrder, setLevel, isVictory, nextLevel, time} = useBottlesContext()
-    
-    useEffect(() => {
-        setLevel(Number(params.level))
-    },[])
+    const {matches, surrender, retry, trueOrder, setSurrender, movesLeft} = useBottlesContext()
+
   return (
-    <div style={{display:'flex', flexDirection:'column', gap:'15px', justifyContent:'center', alignItems:'center'}}>
-        <Timer size='50px' initialTimeSec={time} onFinishTime={() => console.log('xd')}/>
-        <Title type={2}>Level {Number(params.level)+1}</Title>
-        <p style={{fontSize:'24px'}}>Matches: {matches}</p>
+    <>
+    <MovesCounter movesLeft={movesLeft} size='24px'/>
+    <p style={{fontSize:'36px', margin:0, padding:0}}>Matches: {matches}</p>
         {isDraggable?
             <DraggableBottles/>
             :
             <SwitchableBottles/>
         }
-        <p style={{fontSize:'24px'}}>Original:</p>
         {surrender?
             <>
+            <p style={{fontSize:'24px'}}>Original:</p>
             <button onClick={retry}>retry</button>
             <div style={{display:'flex', gap:'15px', flexDirection:'row'}}>
                 {trueOrder.map((bottle) => {
@@ -56,12 +47,10 @@ function BottleLevel() {
         :
         <>
             <button onClick={() => setSurrender(true)}>Surrender</button>
-            <GameOptions/>
         </>
         }
-        <VictoryDialog isOpen={isVictory} onRequestClose={nextLevel}/>
-    </div>
+    </>
   )
 }
 
-export default BottleLevel
+export default BottlesDisplay

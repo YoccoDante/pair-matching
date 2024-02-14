@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import useCreateBottles from './useCreateBottles'
 import { BottleModel } from '../models/bottle'
 import { LevelModel } from '../models/level'
+import { useLocation } from 'wouter'
 
 function usePermutations() {
   const {getBottles} = useCreateBottles()
@@ -11,12 +12,22 @@ function usePermutations() {
   const [levels, setLevels] = useState<LevelModel[]>([])
   const [isVictory, setIsVictory] = useState(false)
   const [selectedBottle, setSelectedBottle] = useState<BottleModel|null>(null)
+  const [movesDone, setMovesDone] = useState(0)
+  const [time, setTime] = useState(0)
+  const [location, setLocation] = useLocation()
+  const maxMoves = Math.floor(bottles.length + bottles.length/2)
+  const movesLeft = maxMoves - movesDone
+
+  const handleDiscountMove = () => {
+      if (movesLeft === 0) return
+      setMovesDone(movesDone + 1)
+  }
 
   const handleSelectBottle = (bottle:BottleModel) => {
     if (selectedBottle && selectedBottle._id == bottle._id) return
     setSelectedBottle(bottle)
   }
-  const switchBottles = () => {
+  const swapBottles = () => {
     if (!selectedBottle) return
     const centerIndex = bottles.findIndex((bottle) => bottle._id == selectedBottle._id)
     
@@ -25,14 +36,19 @@ function usePermutations() {
     const rightBottles = [...bottles].splice(centerIndex + 1)
 
     // Concatenate the two parts in reverse order
-    const switchedBottles = rightBottles.concat([bottles[centerIndex]],leftBottles)
+    const swapedBottles = rightBottles.concat([bottles[centerIndex]],leftBottles)
 
-    setBottles(switchedBottles)
+    setBottles(swapedBottles)
+    handleDiscountMove()
   }
 
   const defineGame = () => {
     const {shuffledBottles} = getBottles(level + 3)
     setBottles(shuffledBottles)
+
+    const newTime = shuffledBottles.length * 10
+    setTime(newTime)
+    setMovesDone(0)
   }
 
   const checkVictory = () => {
@@ -59,6 +75,7 @@ function usePermutations() {
     const levelsCopy = [... levels]
     levelsCopy[level+1].isLocked = false
     setLevels(levelsCopy)
+    setLocation(String(level+1))
 }
 
   useEffect(() => {
@@ -82,9 +99,11 @@ function usePermutations() {
     levels,
     nextLevel,
     handleSelectBottle,
-    switchBottles,
+    swapBottles,
     selectedBottle,
-    setLevel
+    setLevel,
+    movesLeft,
+    time
   }
 }
 

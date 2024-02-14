@@ -3,11 +3,12 @@ import { BottleModel } from '../models/bottle';
 import useCreateBottles from './useCreateBottles';
 import { LevelModel } from '../models/level';
 import { useLocation } from 'wouter';
+import { useSettingsContext } from '../contexts/SettingsContext';
 
 function useBottles() {
+    const {isDraggable} = useSettingsContext()
     const {getBottles} = useCreateBottles()
     const numLevels = 17
-    const [location, setLocation] = useLocation()
     const [isVictory, setIsVictory] = useState(false)
     const [bottles, setBottles] = useState<BottleModel[]>([]);
     const [trueOrder, setTrueOrder] = useState<BottleModel[]>([])
@@ -16,7 +17,16 @@ function useBottles() {
     const [level, setLevel] = useState(0)
     const [levels, setLevels] = useState<LevelModel[]>([])
     const [time, setTime] = useState(0)
+    const [location, setLocation] = useLocation()
+    const maxMoves = isDraggable? trueOrder.length * 4 : Math.floor(trueOrder.length * 2)
+    const [movesDone, setMovesDone] = useState(0)
+    const movesLeft = maxMoves - movesDone
 
+    const handleDiscountMove = () => {
+        if (movesLeft === 0) return
+        setMovesDone(movesDone + 1)
+    }
+    
     const checkMatches = () => {
         if (bottles.length == 0) return
         if (surrender) return
@@ -37,7 +47,9 @@ function useBottles() {
         const {bottles, shuffledBottles} = getBottles(numBottles)
         setBottles(bottles)
         setTrueOrder(shuffledBottles)
-        setTime(bottles.length*10)
+
+        const newTime = bottles.length*10
+        setTime(newTime)
     }
 
     const retry = () => {
@@ -52,7 +64,8 @@ function useBottles() {
         const levelsCopy = [... levels]
         levelsCopy[level+1].isLocked = false
         setLevels(levelsCopy)
-        setLocation(String(level+1))
+        setMovesDone(0)
+        setLocation(String(level +1))
     }
 
     useEffect(() => {
@@ -87,7 +100,9 @@ function useBottles() {
     setLevel,
     levels,
     setLevels,
-    time
+    time,
+    handleDiscountMove,
+    movesLeft
   })
 }
 

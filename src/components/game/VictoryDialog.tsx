@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
-import StartIcon from './icons/StartIcon';
-import Button from './Button';
+import StartIcon from '../icons/StartIcon';
+import Button from '../tags/Button';
 
 Modal.setAppElement('#root'); // Add this line
 

@@ -5,7 +5,7 @@ import { useBottlesContext } from '../../contexts/BottleContext'
 import FlipMove from 'react-flip-move'
 
 function SwitchableBottles() {
-    const {bottles,setBottles,checkMatches, retry} = useBottlesContext()
+    const {bottles,setBottles, handleDiscountMove} = useBottlesContext()
     const [selectedBottles, setSelectedBottles] = useState<BottleModel[]>([])
 
     const handleSelectBottle = (newBottle:BottleModel) => {
@@ -55,6 +55,7 @@ function SwitchableBottles() {
         [bottlesCopy[index1], bottlesCopy[index2]] = [bottlesCopy[index2], bottlesCopy[index1]]
     
         setBottles(bottlesCopy)
+        handleDiscountMove()
     }
 
   return (
@@ -65,7 +66,7 @@ function SwitchableBottles() {
                     return (
                         <div
                             key={bottle._id}
-                            style={{border:isSelected? '5px solid gold':'5px solid white'}}
+                            style={{border:isSelected? '5px solid gold':'5px solid white', boxSizing:'border-box'}}
                             onClick={() => handleSelectBottle(bottle)}
                         >
                             <Bottle bottle={bottle}/>
@@ -73,7 +74,7 @@ function SwitchableBottles() {
                     )
                 })}
             </FlipMove>
-            <button onClick={handleSwitch} disabled={selectedBottles.length === 2 ? false : true}>intercambiar</button>
+            <button onClick={handleSwitch} disabled={selectedBottles.length === 2 ? false : true}>Switch</button>
         </>
   )
 }

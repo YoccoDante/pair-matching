@@ -4,7 +4,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useBottlesContext } from '../../contexts/BottleContext';
 
 function DraggableBottles() {
-    const {bottles,setBottles, checkMatches} = useBottlesContext()
+    const {bottles,setBottles, handleDiscountMove} = useBottlesContext()
     const handleDragDrop = (results:any) => {
         const {source, destination} = results
 
@@ -23,7 +23,8 @@ function DraggableBottles() {
             const [removedBottle] = reorderedBottles.splice(sourceIndex, 1)
             reorderedBottles.splice(destinationIndex, 0, removedBottle)
 
-            return setBottles(reorderedBottles)
+            setBottles(reorderedBottles)
+            handleDiscountMove()
         }
     }
 

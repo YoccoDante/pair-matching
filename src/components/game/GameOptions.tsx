@@ -1,8 +1,8 @@
-import { useSettingsContext } from '../contexts/SettingsContext';
-import GameIcon from './GameIcon';
+import { useSettingsContext } from '../../contexts/SettingsContext';
+import GameIcon from '../icons/GameIcon';
 
 function GameOptions() {
-    const {playMusic, setPlayMusic} = useSettingsContext()
+    const {playMusic, setPlayMusic, setIsDraggable, isDraggable} = useSettingsContext()
     return (
         <div
         style={{
@@ -22,7 +22,7 @@ function GameOptions() {
             <GameIcon type='animated-bg'/>
             <GameIcon isActive={playMusic} type='music' onClick={() => setPlayMusic(!playMusic)}/>
             <GameIcon type='volume-control'/>
-            <GameIcon type='switchable'/>
+            <GameIcon isActive={isDraggable} type='switchable' onClick={() => setIsDraggable(!isDraggable)}/>
         </div>
   );
 }

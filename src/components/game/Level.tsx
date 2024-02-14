@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { keyframes } from 'styled-components';
-import { LevelModel } from '../models/level';
+import { LevelModel } from '../../models/level';
 import Stars from './Stars';
-import LockIcon from './icons/LockIcon';
-import GameIcon from './GameIcon';
+import LockIcon from '../icons/LockIcon';
+import GameIcon from '../icons/GameIcon';
 
 interface LevelProps {
   level: LevelModel;

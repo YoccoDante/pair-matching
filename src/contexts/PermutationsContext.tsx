@@ -11,9 +11,11 @@ interface PermutationsContextType {
     levels:LevelModel[],
     nextLevel:() => void;
     handleSelectBottle:(bottle:BottleModel) => void;
-    switchBottles:() => void;
+    swapBottles:() => void;
     selectedBottle:BottleModel|null,
-    setLevel:React.Dispatch<React.SetStateAction<number>>
+    setLevel:React.Dispatch<React.SetStateAction<number>>,
+    movesLeft:number;
+    time:number
 }
 
 // 1. Create a new context
